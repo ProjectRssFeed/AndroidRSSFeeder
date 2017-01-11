@@ -10,6 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="epitech.quentinfavre.rssfeeder.view.layout.MainActivity">
 
+    <data>
+        <variable android:name="viewModel" android:type="epitech.quentinfavre.rssfeeder.viewModel.MainActivityViewModel"/>
+    </data>
 
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,7 +36,7 @@
                     android:inputType="textEmailAddress"
                     android:layout_marginTop="124dp"
                     android:maxLines="1"
-                    android:hint="Login" />
+                    android:hint="Login"/>
 
             </android.support.design.widget.TextInputLayout>
 
