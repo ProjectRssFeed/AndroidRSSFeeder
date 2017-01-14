@@ -2,7 +2,6 @@ package com.exmple.rssfeed.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.exmple.rssfeed.databinding.ItemArticleBinding;
 import com.exmple.rssfeed.model.ArticleModel;
@@ -15,8 +14,8 @@ import java.util.List;
  * Created by Quentin on 14/01/2017.
  */
 
-public static class BindingHolder extends RecyclerView.ViewHolder {
-    private ItemArticleBinding binding;
+class BindingHolder extends RecyclerView.ViewHolder {
+    public ItemArticleBinding binding;
 
     public BindingHolder(ItemArticleBinding binding) {
         super(binding.cardView);
@@ -39,11 +38,26 @@ public class ArticleAdapter extends RecyclerView.Adapter<BindingHolder> {
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
+        ItemArticleBinding articleBinding = holder.binding;
+        articleBinding.setViewmodel(new ArticleViewModel(articles.get(position)));
+    }
 
+    public List<ArticleModel> getItem() {
+        return articles;
+    }
+
+    public void setArticles(List<ArticleModel> articles) {
+        this.articles = articles;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(ArticleModel article) {
+        articles.add(0, article);
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return articles.size();
     }
 }

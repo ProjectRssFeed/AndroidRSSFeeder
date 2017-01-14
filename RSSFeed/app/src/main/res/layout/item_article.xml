@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="viewmodel"
+            name="viewModel"
+            type="com.exmple.rssfeed.viewModel.ArticleViewModel"/>
+        <variable
+            name="handlers"
             type="com.exmple.rssfeed.viewModel.ArticleViewModel"/>
     </data>
 
@@ -21,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@{viewModel.title}"
-                android:onClick="@{viewModel.onClickArticle}"/>
+                android:onClick="@{handlers::onClickArticle}"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -41,7 +44,7 @@
                     android:layout_toRightOf="@+id/text_post_points"
                     android:text="@{viewModel.author}"
                     android:bufferType="spannable"
-                    android:onClick="@{viewModel.onClickAuthor}"/>
+                    android:onClick="@{handlers::onClickAuthor}"/>
 
             </RelativeLayout>
         </LinearLayout>

@@ -30,11 +30,21 @@ public class ArticleViewModel extends BaseObservable {
         return article.Text;
     }
 
-    public synchronized void onClickArticle(View view) {
-        LoggerService.Log(this.getClass().getName(), "ON CLICK ARTICLE");
+    public synchronized View.OnClickListener onClickArticle() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoggerService.Log(this.getClass().getName(), "ON CLICK ARTICLE");
+            }
+        };
     }
 
-    public synchronized void onClickAuthor(View view) {
-        LoggerService.Log(this.getClass().getName(), "ON CLICK AUTHOR");
+    public synchronized View.OnClickListener onClickAuthor() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoggerService.Log(this.getClass().getName(), "ON CLICK AUTHOR");
+            }
+        };
     }
 }
