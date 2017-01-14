@@ -1,5 +1,6 @@
 package com.exmple.rssfeed.view;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
