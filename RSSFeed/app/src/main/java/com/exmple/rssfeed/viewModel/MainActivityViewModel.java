@@ -8,7 +8,6 @@ import android.view.View;
 import com.exmple.rssfeed.BR;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
-import com.exmple.rssfeed.view.MainActivity;
 
 /**
  * Created by Quentin on 12/01/2017.

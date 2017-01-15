@@ -39,7 +39,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<BindingHolder> {
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
         ItemArticleBinding articleBinding = holder.binding;
-        articleBinding.setViewmodel(new ArticleViewModel(articles.get(position)));
+        articleBinding.setViewModel(new ArticleViewModel(articles.get(position)));
     }
 
     public List<ArticleModel> getItem() {

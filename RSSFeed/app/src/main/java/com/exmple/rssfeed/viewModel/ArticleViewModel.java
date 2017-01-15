@@ -30,7 +30,7 @@ public class ArticleViewModel extends BaseObservable {
         return article.Text;
     }
 
-    public synchronized View.OnClickListener onClickArticle() {
+    public View.OnClickListener onClickArticle() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +39,7 @@ public class ArticleViewModel extends BaseObservable {
         };
     }
 
-    public synchronized View.OnClickListener onClickAuthor() {
+    public View.OnClickListener onClickAuthor() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
