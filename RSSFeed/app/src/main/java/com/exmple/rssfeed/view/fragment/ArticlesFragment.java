@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.exmple.rssfeed.R;
-import com.exmple.rssfeed.viewModel.ArticlesFragmentViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
