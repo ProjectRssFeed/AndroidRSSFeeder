@@ -1,40 +1,51 @@
 package com.exmple.rssfeed.viewModel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.net.Uri;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 
-import com.exmple.rssfeed.Utils.LoggerService;
+import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.model.ArticleModel;
-
-/**
- * Created by Quentin on 14/01/2017.
- */
 
 public class ArticleViewModel extends BaseObservable {
 
-    private ArticleModel article;
-
-    public ArticleViewModel(ArticleModel article) {
-        this.article = article;
+    private Context context;
+    private ArticleModel post;
+    public ArticleViewModel(Context context, ArticleModel post) {
+        this.context = context;
+        this.post = post;
     }
 
-    public String getTitle() {
-        return article.Title;
+    public String getPostScore() {
+        return String.valueOf(post.Author);
     }
 
-    public String getAuthor() {
-        return article.Author;
+    public String getPostTitle() {
+        return post.Date;
     }
 
-    public String getText() {
-        return article.Text;
+    public Spannable getPostAuthor() {
+        String author = post.Author;
+        SpannableString content = new SpannableString(author);
+        return content;
     }
 
-    public View.OnClickListener onClickArticle() {
+    public View.OnClickListener onClickPost() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoggerService.Log(this.getClass().getName(), "ON CLICK ARTICLE");
+//                Post.PostType postType = post.postType;
+//                if (postType == Post.PostType.JOB || postType == Post.PostType.STORY) {
+//                    launchStoryActivity();
+//                } else if (postType == Post.PostType.ASK) {
+//                    launchCommentsActivity();
+//                }
+//            }
             }
         };
     }
@@ -43,7 +54,16 @@ public class ArticleViewModel extends BaseObservable {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoggerService.Log(this.getClass().getName(), "ON CLICK AUTHOR");
+//                context.startActivity(UserActivity.getStartIntent(context, post.by));
+//            }
+            }
+        };
+    }
+
+    public View.OnClickListener onClickComments() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         };
     }

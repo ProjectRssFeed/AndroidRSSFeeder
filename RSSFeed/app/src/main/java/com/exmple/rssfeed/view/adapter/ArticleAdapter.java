@@ -1,8 +1,13 @@
 package com.exmple.rssfeed.view.adapter;
 
+import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.exmple.rssfeed.R;
+import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.databinding.ItemArticleBinding;
 import com.exmple.rssfeed.model.ArticleModel;
 import com.exmple.rssfeed.viewModel.ArticleViewModel;
@@ -10,54 +15,61 @@ import com.exmple.rssfeed.viewModel.ArticleViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Quentin on 14/01/2017.
- */
+public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.BindingHolder> {
+    private List<ArticleModel> mPosts;
+    private Context mContext;
 
-class BindingHolder extends RecyclerView.ViewHolder {
-    public ItemArticleBinding binding;
-
-    public BindingHolder(ItemArticleBinding binding) {
-        super(binding.cardView);
-        this.binding = binding;
-    }
-}
-
-public class ArticleAdapter extends RecyclerView.Adapter<BindingHolder> {
-
-    private List<ArticleModel> articles;
-
-    public ArticleAdapter() {
-        articles = new ArrayList<>();
+    public ArticleAdapter(Context context) {
+        mContext = context;
+        mPosts = new ArrayList<>();
     }
 
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        ItemArticleBinding postBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()),
+                R.layout.item_article,
+                parent,
+                false);
+        return new BindingHolder(postBinding);
     }
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
-        ItemArticleBinding articleBinding = holder.binding;
-        articleBinding.setViewModel(new ArticleViewModel(articles.get(position)));
-    }
-
-    public List<ArticleModel> getItem() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleModel> articles) {
-        this.articles = articles;
-        notifyDataSetChanged();
-    }
-
-    public void addItem(ArticleModel article) {
-        articles.add(0, article);
-        notifyDataSetChanged();
+        ItemArticleBinding postBinding = holder.binding;
+        postBinding.setViewModel(new ArticleViewModel(mContext, mPosts.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return articles.size();
+        return mPosts.size();
+    }
+
+    public void setItems(List<ArticleModel> posts) {
+        mPosts = posts;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(ArticleModel post) {
+        LoggerService.Log(mPosts.size() + "");
+        if (!mPosts.contains(post)) {
+            mPosts.add(post);
+            LoggerService.Log("Adding same");
+            notifyItemInserted(mPosts.size() - 1);
+        } else {
+            mPosts.set(mPosts.indexOf(post), post);
+            LoggerService.Log("Adding not same");
+            notifyItemChanged(mPosts.indexOf(post));
+        }
+        LoggerService.Log(mPosts.size() + "");
+    }
+
+    public static class BindingHolder extends RecyclerView.ViewHolder {
+        private ItemArticleBinding binding;
+
+        public BindingHolder(ItemArticleBinding binding) {
+            super(binding.cardView);
+            this.binding = binding;
+        }
     }
 }

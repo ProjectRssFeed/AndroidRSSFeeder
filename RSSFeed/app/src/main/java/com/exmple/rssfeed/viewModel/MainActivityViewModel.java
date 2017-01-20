@@ -1,5 +1,6 @@
 package com.exmple.rssfeed.viewModel;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.exmple.rssfeed.BR;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
+import com.exmple.rssfeed.view.ArticleActivity;
 
 /**
  * Created by Quentin on 12/01/2017.
@@ -45,7 +47,6 @@ public class MainActivityViewModel extends BaseObservable {
         this.Passwd = passwd;
         notifyPropertyChanged(BR.passwd);
     }
-
     public synchronized void onClickSignIn(View view) {
         LoggerService.Log(this.getClass().getName(), "Click on sign in");
         // Call API to Login
@@ -54,5 +55,8 @@ public class MainActivityViewModel extends BaseObservable {
         editor.putString("ApiLogin", getLogin());
         editor.putString("ApiPassws", getPasswd());
         editor.commit();
+        Intent i = new Intent(RSSFeed.getContext(), ArticleActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        RSSFeed.getContext().startActivities(new Intent[] { i });
     }
 }

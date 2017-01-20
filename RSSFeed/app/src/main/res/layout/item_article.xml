@@ -1,49 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
-        <variable
-            name="viewModel"
-            type="com.exmple.rssfeed.viewModel.ArticleViewModel"/>
+        <variable name="viewModel" type="com.exmple.rssfeed.viewModel.ArticleViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/text_post_title"
+        <LinearLayout
+            android:id="@+id/container_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:onClick="@{viewModel.onClickPost}">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@{viewModel.title}"
-                android:onClick="@{viewModel.onClickArticle}"/>
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/text_post_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{viewModel.postTitle}"
+                    android:onClick="@{viewModel.onClickPost}"/>
 
-            <RelativeLayout
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_post_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="@{viewModel.postScore}"/>
+                    <TextView
+                        android:id="@+id/text_post_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/text_post_points"
+                        android:text="@{viewModel.postAuthor}"
+                        android:bufferType="spannable"
+                        android:onClick="@{viewModel.onClickAuthor}"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="1dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/text_post_points"
+                    android:id="@+id/text_view_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="@{viewModel.text}"/>
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:textStyle="bold"
+                    android:onClick="@{viewModel.onClickPost}"/>
 
                 <TextView
-                    android:id="@+id/text_post_author"
+                    android:id="@+id/text_view_comments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/text_post_points"
-                    android:text="@{viewModel.author}"
-                    android:bufferType="spannable"
-                    android:onClick="@{viewModel.onClickAuthor}"/>
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:onClick="@{viewModel.onClickComments}" />
 
-            </RelativeLayout>
+            </LinearLayout>
+
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
+
 </layout>
