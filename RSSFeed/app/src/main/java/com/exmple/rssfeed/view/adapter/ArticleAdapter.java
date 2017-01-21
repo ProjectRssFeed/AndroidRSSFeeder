@@ -46,21 +46,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.BindingH
     }
 
     public void setItems(List<ArticleModel> posts) {
+        LoggerService.Log(mPosts.size() + "");
         mPosts = posts;
         notifyDataSetChanged();
+        LoggerService.Log(mPosts.size() + "");
     }
 
     public void addItem(ArticleModel post) {
         LoggerService.Log(mPosts.size() + "");
-        if (!mPosts.contains(post)) {
-            mPosts.add(post);
-            LoggerService.Log("Adding same");
-            notifyItemInserted(mPosts.size() - 1);
-        } else {
-            mPosts.set(mPosts.indexOf(post), post);
-            LoggerService.Log("Adding not same");
-            notifyItemChanged(mPosts.indexOf(post));
-        }
+        mPosts.add(post);
+        notifyItemInserted(mPosts.size() - 1);
         LoggerService.Log(mPosts.size() + "");
     }
 

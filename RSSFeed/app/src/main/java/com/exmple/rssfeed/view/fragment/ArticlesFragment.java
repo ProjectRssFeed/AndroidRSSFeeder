@@ -78,8 +78,8 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         tmp.Date = "Today";
         tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuihvfduisvs";
         tmp.Title = "Android c'est de la merde";
-        mPostAdapter.addItem(tmp);
-        LoggerService.Log("ADD TMP");
+        mArticles.add(0, tmp);
+        mPostAdapter.setItems(mArticles);
         hideLoadingViews();
     }
 
