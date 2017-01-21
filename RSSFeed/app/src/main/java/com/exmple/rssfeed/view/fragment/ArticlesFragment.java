@@ -67,6 +67,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LoggerService.Log("DESTROYING FRAGMENT");
     }
 
     @Override

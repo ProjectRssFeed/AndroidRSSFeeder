@@ -19,6 +19,11 @@ public class RSSFeed extends Application {
 
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
+
     public static Context getContext() {
         return RSSFeed.context;
     }

@@ -10,7 +10,11 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 
 import com.exmple.rssfeed.R;
+import com.exmple.rssfeed.RSSFeed;
+import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.ArticleModel;
+import com.exmple.rssfeed.view.ArticleActivity;
+import com.exmple.rssfeed.view.ViewArticleActivity;
 
 public class ArticleViewModel extends BaseObservable {
 
@@ -21,31 +25,32 @@ public class ArticleViewModel extends BaseObservable {
         this.post = post;
     }
 
-    public String getPostScore() {
-        return String.valueOf(post.Author);
+    public String getPostTitle() {
+        return post.Title;
     }
 
-    public String getPostTitle() {
+    public String getPostDate() {
         return post.Date;
     }
 
-    public Spannable getPostAuthor() {
-        String author = post.Author;
-        SpannableString content = new SpannableString(author);
-        return content;
+    public String getPostText() {
+        int i = 0;
+        if (post.Text.length() > 100)
+            i = 100;
+        else
+            i = post.Text.length();
+        return post.Text.substring(0, i) + "...";
+    }
+
+    public String getPostAuthor() {
+        return post.Author;
     }
 
     public View.OnClickListener onClickPost() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Post.PostType postType = post.postType;
-//                if (postType == Post.PostType.JOB || postType == Post.PostType.STORY) {
-//                    launchStoryActivity();
-//                } else if (postType == Post.PostType.ASK) {
-//                    launchCommentsActivity();
-//                }
-//            }
+                context.startActivity(ViewArticleActivity.getStartIntent(context, post));
             }
         };
     }
@@ -56,14 +61,6 @@ public class ArticleViewModel extends BaseObservable {
             public void onClick(View v) {
 //                context.startActivity(UserActivity.getStartIntent(context, post.by));
 //            }
-            }
-        };
-    }
-
-    public View.OnClickListener onClickComments() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         };
     }

@@ -46,17 +46,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.BindingH
     }
 
     public void setItems(List<ArticleModel> posts) {
-        LoggerService.Log(mPosts.size() + "");
         mPosts = posts;
         notifyDataSetChanged();
-        LoggerService.Log(mPosts.size() + "");
     }
 
     public void addItem(ArticleModel post) {
-        LoggerService.Log(mPosts.size() + "");
         mPosts.add(post);
         notifyItemInserted(mPosts.size() - 1);
-        LoggerService.Log(mPosts.size() + "");
     }
 
     public static class BindingHolder extends RecyclerView.ViewHolder {

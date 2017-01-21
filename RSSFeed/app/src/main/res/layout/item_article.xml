@@ -2,16 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="viewModel" type="com.exmple.rssfeed.viewModel.ArticleViewModel" />
+        <variable
+            name="viewModel"
+            type="com.exmple.rssfeed.viewModel.ArticleViewModel" />
     </data>
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
         card_view:cardCornerRadius="2dp"
         card_view:cardUseCompatPadding="true">
 
@@ -20,68 +21,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:orientation="vertical"
-            android:onClick="@{viewModel.onClickPost}">
+            android:onClick="@{viewModel.onClickPost}"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
+
                 <TextView
                     android:id="@+id/text_post_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="@{viewModel.postTitle}"
-                    android:onClick="@{viewModel.onClickPost}"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:bufferType="spannable"
+                    android:onClick="@{viewModel.onClickPost}"
+                    android:text="@{viewModel.postTitle}" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/text_post_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="@{viewModel.postScore}"/>
-                    <TextView
-                        android:id="@+id/text_post_author"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/text_post_points"
-                        android:text="@{viewModel.postAuthor}"
-                        android:bufferType="spannable"
-                        android:onClick="@{viewModel.onClickAuthor}"/>
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_post_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:bufferType="spannable"
+                    android:textSize="14sp"
+                    android:text="@{viewModel.postText}" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="16dp">
+
                 <TextView
                     android:id="@+id/text_view_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
                     android:clickable="true"
+                    android:onClick="@{viewModel.onClickPost}"
                     android:textStyle="bold"
-                    android:onClick="@{viewModel.onClickPost}"/>
+                    android:textSize="17sp"
+                    android:text="@string/voir_l_article"/>
 
                 <TextView
-                    android:id="@+id/text_view_comments"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:onClick="@{viewModel.onClickComments}" />
+                    android:textSize="17sp"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="30sp"
+                    android:text="@{viewModel.postAuthor}"
+                    android:onClick="@{viewModel.onClickAuthor()}"/>
+
+                <TextView
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30sp"
+                    android:textSize="17sp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.postDate}" />
 
             </LinearLayout>
 

@@ -2,11 +2,13 @@ package com.exmple.rssfeed.model;
 
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Quentin on 14/01/2017.
  */
 
-public class ArticleModel {
+public class ArticleModel implements Serializable{
 
     public String Title;
     public String Author;

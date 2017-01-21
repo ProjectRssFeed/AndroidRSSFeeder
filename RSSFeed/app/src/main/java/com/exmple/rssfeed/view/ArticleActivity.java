@@ -11,26 +11,25 @@ import com.exmple.rssfeed.view.fragment.ArticlesFragment;
 
 public class ArticleActivity extends BaseActivity {
 
+    private ArticlesFragment am;
+
     public static Intent getStartIntent(Context context) {
         return new Intent(context, MainActivity.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
-        addStoriesFragment();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
-    }
-
-    private void addStoriesFragment() {
+        am = new ArticlesFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content_frame, new ArticlesFragment())
+                .replace(R.id.content_frame, am)
                 .commit();
     }
 }
