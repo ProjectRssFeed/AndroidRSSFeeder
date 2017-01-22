@@ -27,6 +27,7 @@ public class ViewArticleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         ArticleModel m = (ArticleModel) bundle.getSerializable("Article");
+        setTitle(m.Title);
         ActivityViewArticleBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_view_article);
         ViewArticleViewModel vm = new ViewArticleViewModel(m);
         bind.setViewModel(vm);

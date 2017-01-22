@@ -35,15 +35,18 @@ public class ArticleViewModel extends BaseObservable {
 
     public String getPostText() {
         int i = 0;
-        if (post.Text.length() > 100)
-            i = 100;
+        String next = "";
+        if (post.Text.length() > 140) {
+            i = 140;
+            next = "...";
+        }
         else
             i = post.Text.length();
-        return post.Text.substring(0, i) + "...";
+        return post.Text.substring(0, i) + next;
     }
 
     public String getPostAuthor() {
-        return post.Author;
+        return "Par : " + post.Author;
     }
 
     public View.OnClickListener onClickPost() {

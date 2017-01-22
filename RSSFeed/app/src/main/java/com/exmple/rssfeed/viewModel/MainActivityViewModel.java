@@ -11,6 +11,8 @@ import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.view.ArticleActivity;
 
+import java.util.logging.Logger;
+
 /**
  * Created by Quentin on 12/01/2017.
  */
@@ -53,7 +55,7 @@ public class MainActivityViewModel extends BaseObservable {
         SharedPreferences sharedPreferences = RSSFeed.getContext().getSharedPreferences("ApiCredentials", RSSFeed.getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ApiLogin", getLogin());
-        editor.putString("ApiPassws", getPasswd());
+        editor.putString("ApiPasswd", getPasswd());
         editor.commit();
         Intent i = new Intent(RSSFeed.getContext(), ArticleActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

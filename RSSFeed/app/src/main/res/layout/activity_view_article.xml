@@ -4,20 +4,66 @@
     tools:context="com.exmple.rssfeed.view.ViewArticleActivity">
 
     <data>
-        <variable name="viewModel" type="com.exmple.rssfeed.viewModel.ViewArticleViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="com.exmple.rssfeed.viewModel.ViewArticleViewModel" />
     </data>
 
-    <RelativeLayout android:layout_height="match_parent"
-        android:layout_width="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:text="@{viewModel.title}"
-            />
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/ViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{viewModel.title}"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/ViewText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="20sp"
+                android:textSize="20sp"
+                android:layout_below="@id/ViewTitle"
+                android:text="@{viewModel.text}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_below="@id/ViewText"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ViewAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:text="@{viewModel.author}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:text="@{viewModel.date}"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </ScrollView>
 </layout>

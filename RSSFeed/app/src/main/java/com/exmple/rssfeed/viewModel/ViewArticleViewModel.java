@@ -21,4 +21,10 @@ public class ViewArticleViewModel extends BaseObservable {
     public Spannable getTitle() {
         return new SpannableString(model.Title);
     }
+
+    public Spannable getText() { return new SpannableString(model.Text);}
+
+    public String getAuthor() { return "Auteur : " + model.Author;}
+
+    public String getDate() { return "Le : " + model.Date;}
 }

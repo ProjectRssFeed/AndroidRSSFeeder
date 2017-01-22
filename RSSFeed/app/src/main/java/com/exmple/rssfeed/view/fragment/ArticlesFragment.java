@@ -1,5 +1,6 @@
 package com.exmple.rssfeed.view.fragment;
 
+import android.database.Observable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -51,7 +52,6 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mArticles = new ArrayList<>();
-        Bundle bundle = getArguments();
         mPostAdapter = new ArticleAdapter(getActivity());
     }
 
@@ -77,7 +77,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         int i = ((new Random()).nextInt(80 -65 ) + 65);
         tmp.Author = "Quentin " + i;
         tmp.Date = "Today";
-        tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuihvfduisvs";
+        tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuigzregerzrgzergrezgggggggggggggggggggggggggggggggggggggggggggggggggggfdsgrfsgfddsgfsdgfsdgfdsgfsdgfdsgfsdgfdgfdgfdgsdfgfdsgfdsgfdsgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdsgfdsgfdhvfduisvs";
         tmp.Title = "Android c'est de la merde";
         mArticles.add(0, tmp);
         mPostAdapter.setItems(mArticles);
