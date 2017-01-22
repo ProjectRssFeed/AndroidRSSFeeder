@@ -13,10 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.exmple.rssfeed.R;
+import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.ArticleModel;
 import com.exmple.rssfeed.view.adapter.ArticleAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -52,6 +58,15 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mArticles = new ArrayList<>();
+        try {
+            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
+            FileInputStream fd = new FileInputStream(saveList);
+            ObjectInputStream ois = new ObjectInputStream(fd);
+            mArticles = (List<ArticleModel>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mPostAdapter = new ArticleAdapter(getActivity());
     }
 
@@ -61,13 +76,22 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         setupRecyclerView();
+        if (mArticles.size() > 0)
+            hideLoadingViews();
         return fragmentView;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LoggerService.Log("DESTROYING FRAGMENT");
+        try {
+            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
+            FileOutputStream fd = new FileOutputStream(saveList);
+            ObjectOutputStream os = new ObjectOutputStream(fd);
+            os.writeObject(mArticles);
+        } catch (Exception e) {
+            LoggerService.Log("Error writing Data");
+        }
     }
 
     @Override
