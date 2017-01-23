@@ -12,7 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBlackGrey">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,6 +27,7 @@
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
                 android:textSize="40sp"
+                android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
 
             <TextView
@@ -36,6 +38,7 @@
                 android:layout_marginRight="10sp"
                 android:layout_marginTop="20sp"
                 android:textSize="20sp"
+                android:textColor="@color/colorWhite"
                 android:layout_below="@id/ViewTitle"
                 android:text="@{viewModel.text}" />
 
@@ -53,12 +56,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="18sp"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
                     android:text="@{viewModel.author}" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
                     android:text="@{viewModel.date}"/>
 
             </LinearLayout>
