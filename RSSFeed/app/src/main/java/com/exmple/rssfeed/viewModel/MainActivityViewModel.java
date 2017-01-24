@@ -10,6 +10,7 @@ import com.exmple.rssfeed.BR;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.view.ArticleActivity;
+import com.exmple.rssfeed.view.RssActivity;
 
 import java.util.logging.Logger;
 
@@ -57,7 +58,7 @@ public class MainActivityViewModel extends BaseObservable {
         editor.putString("ApiLogin", getLogin());
         editor.putString("ApiPasswd", getPasswd());
         editor.commit();
-        Intent i = new Intent(RSSFeed.getContext(), ArticleActivity.class);
+        Intent i = new Intent(RSSFeed.getContext(), RssActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         RSSFeed.getContext().startActivities(new Intent[] { i });
     }

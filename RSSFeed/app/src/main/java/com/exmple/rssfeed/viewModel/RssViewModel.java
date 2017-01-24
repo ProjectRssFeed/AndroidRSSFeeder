@@ -1,11 +1,15 @@
 package com.exmple.rssfeed.viewModel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.view.View;
 
+import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.model.ArticleModel;
 import com.exmple.rssfeed.model.RssModel;
+import com.exmple.rssfeed.view.ArticleActivity;
+import com.exmple.rssfeed.view.RssActivity;
 import com.exmple.rssfeed.view.ViewArticleActivity;
 
 /**
@@ -26,7 +30,7 @@ public class RssViewModel extends BaseObservable {
     }
 
     public String getText() {
-        int i = 0;
+        int i;
         String next = "";
         if (post.Text.length() > 140) {
             i = 140;
@@ -41,7 +45,9 @@ public class RssViewModel extends BaseObservable {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //context.startActivity(ViewArticleActivity.getStartIntent(context, post));
+                Intent i = new Intent(RSSFeed.getContext(), ArticleActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                RSSFeed.getContext().startActivity(ArticleActivity.getStartIntent(context, post));
             }
         };
     }

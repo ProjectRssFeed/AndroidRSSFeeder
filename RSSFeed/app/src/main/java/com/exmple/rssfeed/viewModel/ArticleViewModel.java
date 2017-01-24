@@ -40,14 +40,4 @@ public class ArticleViewModel extends BaseObservable {
             }
         };
     }
-
-    public View.OnClickListener onClickAuthor() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                context.startActivity(UserActivity.getStartIntent(context, post.by));
-//            }
-            }
-        };
-    }
 }

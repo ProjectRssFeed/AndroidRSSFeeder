@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".view.ArticleActivity" />
         <activity android:name=".view.ViewArticleActivity" />
-        <activity android:name=".view.AddRssActivity"></activity>
+        <activity android:name=".view.AddRssActivity" />
+        <activity android:name=".view.RssActivity"/>
     </application>
 
 </manifest>

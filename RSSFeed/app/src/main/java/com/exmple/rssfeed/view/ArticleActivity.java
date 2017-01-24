@@ -7,14 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.exmple.rssfeed.R;
+import com.exmple.rssfeed.model.ArticleModel;
+import com.exmple.rssfeed.model.RssModel;
 import com.exmple.rssfeed.view.fragment.ArticlesFragment;
 
 public class ArticleActivity extends BaseActivity {
 
     private ArticlesFragment am;
 
-    public static Intent getStartIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+    public static Intent getStartIntent(Context context, RssModel id) {
+        Intent i =  new Intent(context, ArticleActivity.class);
+        i.putExtra("RssModel", id);
+        return i;
     }
 
     @Override
@@ -26,7 +30,9 @@ public class ArticleActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
-        am = new ArticlesFragment();
+        Bundle bundle = getIntent().getExtras();
+        RssModel m = (RssModel) bundle.getSerializable("RssModel");
+        am = new ArticlesFragment(m, this);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, am)

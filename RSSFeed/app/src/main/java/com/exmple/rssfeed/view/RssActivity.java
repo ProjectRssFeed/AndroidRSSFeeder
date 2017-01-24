@@ -31,7 +31,7 @@ public class RssActivity extends BaseActivity {
         rssFragment = new RSSFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content_frame, rssFragment)
+                .replace(R.id.rssframe, rssFragment)
                 .commit();
     }
 }

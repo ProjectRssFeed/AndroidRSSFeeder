@@ -1,6 +1,7 @@
 package com.exmple.rssfeed.view.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -15,6 +16,9 @@ import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.ArticleModel;
+import com.exmple.rssfeed.model.Data;
+import com.exmple.rssfeed.model.RssModel;
+import com.exmple.rssfeed.view.ArticleActivity;
 import com.exmple.rssfeed.view.adapter.ArticleAdapter;
 
 import java.io.File;
@@ -40,23 +44,32 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     @Bind(R.id.progress_indicator)
     ProgressBar mProgressBar;
 
+    @Bind(R.id.FloatingButonRemove)
+    FloatingActionButton mButton;
+
     public static final String ARG_USER = "ARG_USER";
 
     private ArticleAdapter mPostAdapter;
-    private List<ArticleModel> mArticles;
+    private RssModel model;
+    private ArticleActivity pactivity;
 
-    public static ArticlesFragment newInstance(String user) {
-        ArticlesFragment storiesFragment = new ArticlesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_USER, user);
-        storiesFragment.setArguments(args);
-        return storiesFragment;
+//    public static ArticlesFragment newInstance(String user) {
+//        ArticlesFragment storiesFragment = new ArticlesFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_USER, user);
+//        storiesFragment.setArguments(args);
+//        return storiesFragment;
+//    }
+
+    public ArticlesFragment(RssModel mod, ArticleActivity activity) {
+        model = mod;
+        this.pactivity = activity;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mArticles = new ArrayList<>();
+/*
         try {
             File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
             FileInputStream fd = new FileInputStream(saveList);
@@ -66,6 +79,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+*/
         mPostAdapter = new ArticleAdapter(getActivity());
     }
 
@@ -75,7 +89,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         setupRecyclerView();
-        if (mArticles.size() > 0)
+        if (model.article.size() > 0)
             hideLoadingViews();
         return fragmentView;
     }
@@ -83,6 +97,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+/*
         try {
             File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
             FileOutputStream fd = new FileOutputStream(saveList);
@@ -91,6 +106,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         } catch (Exception e) {
             LoggerService.Log("Error writing Data");
         }
+*/
     }
 
     @Override
@@ -101,26 +117,28 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuigzregerzrgzergrezgggggggggggggggggggggggggggggggggggggggggggggggggggfdsgrfsgfddsgfsdgfsdgfdsgfsdgfdsgfsdgfdgfdgfdgsdfgfdsgfdsgfdsgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdsgfdsgfdhvfduisvs";
         tmp.Title = "Android c'est de la merde " + i;
         tmp.Link = "http://v,ojoerifoerifroijeroifoierefjo";
-        mArticles.add(0, tmp);
-        mPostAdapter.setItems(mArticles);
+        model.article.add(0, tmp);
+        mPostAdapter.setItems(model.article);
         hideLoadingViews();
     }
 
     private void setupRecyclerView() {
         mListPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListPosts.setHasFixedSize(true);
-        mPostAdapter.setItems(mArticles);
+        mPostAdapter.setItems(model.article);
         mListPosts.setAdapter(mPostAdapter);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoggerService.Log("Remove");
+                Data.getInstance().Rss.remove(model);
+                pactivity.finish();
+            }
+        });
     }
 
     private void hideLoadingViews() {
         mProgressBar.setVisibility(View.GONE);
         mSwipeRefreshLayout.setRefreshing(false);
     }
-
-    private void showHideOfflineLayout(boolean isOffline) {
-        mListPosts.setVisibility(isOffline ? View.GONE : View.VISIBLE);
-        mProgressBar.setVisibility(isOffline ? View.GONE : View.VISIBLE);
-    }
-
 }

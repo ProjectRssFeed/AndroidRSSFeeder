@@ -16,7 +16,7 @@ public class AddRssActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityAddRssBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_add_rss);
-        AddRssActivityViewModel arvm = new AddRssActivityViewModel();
+        AddRssActivityViewModel arvm = new AddRssActivityViewModel(this);
         bind.setHandlers(arvm);
         bind.setViewmodel(arvm);
     }

@@ -10,6 +10,7 @@ import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.databinding.ItemArticleBinding;
 import com.exmple.rssfeed.databinding.ItemRssBinding;
 import com.exmple.rssfeed.model.ArticleModel;
+import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.model.RssModel;
 import com.exmple.rssfeed.viewModel.ArticleViewModel;
 import com.exmple.rssfeed.viewModel.RssViewModel;
@@ -23,19 +24,17 @@ import java.util.List;
 
 public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.BindingHolder>{
 
-    private List<RssModel> mRss;
     private Context mContext;
 
     public RSSAdapter(Context context) {
         mContext = context;
-        mRss = new ArrayList<>();
     }
 
     @Override
     public RSSAdapter.BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemRssBinding postBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.item_article,
+                R.layout.item_rss,
                 parent,
                 false);
         return new RSSAdapter.BindingHolder(postBinding);
@@ -44,24 +43,13 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.BindingHolder>{
     @Override
     public void onBindViewHolder(RSSAdapter.BindingHolder holder, int position) {
         ItemRssBinding postBinding = holder.binding;
-        postBinding.setViewModel(new RssViewModel(mContext, mRss.get(position)));
+        postBinding.setViewModel(new RssViewModel(mContext, Data.getInstance().Rss.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return mRss.size();
+        return Data.getInstance().Rss.size();
     }
-
-    public void setItems(List<RssModel> posts) {
-        mRss = posts;
-        notifyDataSetChanged();
-    }
-
-    public void addItem(RssModel post) {
-        mRss.add(post);
-        notifyItemInserted(mRss.size() - 1);
-    }
-
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ItemRssBinding binding;
