@@ -67,23 +67,23 @@
                     android:textSize="17sp"
                     android:text="@string/voir_l_article"/>
 
-                <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:maxLines="1"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="30sp"
-                    android:text="@{viewModel.postAuthor}"
-                    android:onClick="@{viewModel.onClickAuthor()}"/>
+                <!--<TextView-->
+                    <!--android:layout_width="100sp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="17sp"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:layout_marginLeft="30sp"-->
+                    <!--android:text="@{viewModel.postAuthor}"-->
+                    <!--android:onClick="@{viewModel.onClickAuthor()}"/>-->
 
-                <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30sp"
-                    android:textSize="17sp"
-                    android:maxLines="1"
-                    android:text="@{viewModel.postDate}" />
+                <!--<TextView-->
+                    <!--android:layout_width="100sp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="30sp"-->
+                    <!--android:textSize="17sp"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:text="@{viewModel.postDate}" />-->
 
             </LinearLayout>
 

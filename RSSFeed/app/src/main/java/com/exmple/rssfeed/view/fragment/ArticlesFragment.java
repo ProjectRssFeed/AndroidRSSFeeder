@@ -99,10 +99,9 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         if (mPostAdapter != null) mPostAdapter.setItems(new ArrayList<ArticleModel>());
         ArticleModel tmp = new ArticleModel();
         int i = ((new Random()).nextInt(80 -65 ) + 65);
-        tmp.Author = "Quentin " + i;
-        tmp.Date = "Today";
         tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuigzregerzrgzergrezgggggggggggggggggggggggggggggggggggggggggggggggggggfdsgrfsgfddsgfsdgfsdgfdsgfsdgfdsgfsdgfdgfdgfdgsdfgfdsgfdsgfdsgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdsgfdsgfdhvfduisvs";
-        tmp.Title = "Android c'est de la merde";
+        tmp.Title = "Android c'est de la merde " + i;
+        tmp.Link = "http://v,ojoerifoerifroijeroifoierefjo";
         mArticles.add(0, tmp);
         mPostAdapter.setItems(mArticles);
         hideLoadingViews();

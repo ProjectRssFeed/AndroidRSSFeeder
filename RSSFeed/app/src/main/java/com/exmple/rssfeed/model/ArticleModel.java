@@ -11,9 +11,8 @@ import java.io.Serializable;
 public class ArticleModel implements Serializable{
 
     public String Title;
-    public String Author;
-    public String Date;
     public String Text;
+    public String Link;
 
     @Override
     public boolean equals(Object obj) {
@@ -21,9 +20,7 @@ public class ArticleModel implements Serializable{
         ArticleModel am = (ArticleModel)obj;
         if (!Title.equals(am.Title))
             return false;
-        if (!Author.equals(am.Author))
-            return false;
-        if (!Date.equals(am.Date))
+        if (!Link.equals(am.Link))
             return false;
         if (!Text.equals(am.Text))
             return false;
@@ -32,8 +29,7 @@ public class ArticleModel implements Serializable{
 
     public ArticleModel() {
         Title = "";
-        Author = "";
-        Date = "";
+        Link = "";
         Text = "";
     }
 }

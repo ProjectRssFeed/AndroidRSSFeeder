@@ -16,7 +16,6 @@ public class ViewArticleActivity extends AppCompatActivity {
 
     public static Intent getStartIntent(Context context, ArticleModel post) {
         Intent intent = new Intent(context, ViewArticleActivity.class);
-        LoggerService.Log(post.Author);
         intent.putExtra("Article", post);
         return intent;
     }
