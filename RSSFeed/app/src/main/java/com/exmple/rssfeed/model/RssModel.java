@@ -12,14 +12,23 @@ import java.util.List;
 
 public class RssModel implements Serializable {
 
+    public String Title = "";
+    public String Text = "";
     public String Link = "";
+    public String Id = "";
     public List<ArticleModel> article = new ArrayList<>();
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) return false;
         RssModel am = (RssModel) obj;
+        if (!Title.equals(am.Title))
+            return false;
         if (!Link.equals(am.Link))
+            return false;
+        if (!Text.equals(am.Text))
+            return false;
+        if (!Id.equals(am.Id))
             return false;
         return true;
     }
