@@ -12,8 +12,6 @@ import java.util.List;
 
 public class RssModel implements Serializable {
 
-    public String Title = "";
-    public String Text = "";
     public String Link = "";
     public List<ArticleModel> article = new ArrayList<>();
 
@@ -21,18 +19,12 @@ public class RssModel implements Serializable {
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) return false;
         RssModel am = (RssModel) obj;
-        if (!Title.equals(am.Title))
-            return false;
         if (!Link.equals(am.Link))
-            return false;
-        if (!Text.equals(am.Text))
             return false;
         return true;
     }
 
-    public RssModel(String title, String text, String link) {
-        this.Title = title;
+    public RssModel(String link) {
         this.Link = link;
-        this.Text = text;
     }
 }

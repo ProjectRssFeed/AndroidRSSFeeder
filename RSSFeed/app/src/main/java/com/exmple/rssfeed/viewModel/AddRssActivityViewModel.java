@@ -22,34 +22,12 @@ import com.exmple.rssfeed.view.RssActivity;
 
 public class AddRssActivityViewModel extends BaseObservable {
 
-    private String Title = "";
-    private String Description = "";
     private String Url = "";
 
     private AddRssActivity activity;
 
     public AddRssActivityViewModel(AddRssActivity ada) {
         activity = ada;
-    }
-
-    @Bindable
-    public String getTitle() {
-        return this.Title;
-    }
-
-    public void setTitle(String title) {
-        this.Title = title;
-        notifyPropertyChanged(BR.title);
-    }
-
-    @Bindable
-    public String getText() {
-        return this.Description;
-    }
-
-    public void setText(String txt) {
-        this.Description = txt;
-        notifyPropertyChanged(BR.text);
     }
 
     @Bindable
@@ -64,7 +42,7 @@ public class AddRssActivityViewModel extends BaseObservable {
 
     public synchronized void onClickAdd(View view) {
         LoggerService.Log(this.getClass().getName(), "Click on Add");
-        Data.getInstance().Rss.add(0,new RssModel(Title, Description, Url));
+        Data.getInstance().Rss.add(0,new RssModel(Url));
         activity.finish();
     }
 }

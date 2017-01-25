@@ -20,34 +20,13 @@
         android:background="@color/colorBlackGrey">
 
         <EditText
-            android:id="@+id/loginText"
+            android:id="@+id/link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:layout_marginTop="124dp"
             android:maxLines="1"
             android:hint="@string/title"
-            android:text="@={viewmodel.title}"/>
-
-        <EditText
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:layout_below="@id/loginText"
-            android:layout_marginTop="30dp"
-            android:hint="@string/password"
-            android:text="@={viewmodel.text}"/>
-
-        <EditText
-            android:id="@+id/link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textUri"
-            android:textColor="@color/colorWhite"
-            android:layout_below="@id/description"
-            android:layout_marginTop="30dp"
-            android:hint="@string/link"
             android:text="@={viewmodel.link}"/>
 
         <Button
