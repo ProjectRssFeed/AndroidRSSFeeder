@@ -22,9 +22,9 @@ import com.exmple.rssfeed.view.RssActivity;
 
 public class AddRssActivityViewModel extends BaseObservable {
 
-    private String Title;
-    private String Description;
-    private String Url;
+    private String Title = "";
+    private String Description = "";
+    private String Url = "";
 
     private AddRssActivity activity;
 

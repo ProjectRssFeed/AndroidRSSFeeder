@@ -12,10 +12,10 @@ import java.util.List;
 
 public class RssModel implements Serializable {
 
-    public String Title;
-    public String Text;
-    public String Link;
-    public List<ArticleModel> article;
+    public String Title = "";
+    public String Text = "";
+    public String Link = "";
+    public List<ArticleModel> article = new ArrayList<>();
 
     @Override
     public boolean equals(Object obj) {
@@ -34,13 +34,5 @@ public class RssModel implements Serializable {
         this.Title = title;
         this.Link = link;
         this.Text = text;
-        article = new ArrayList<>();
-    }
-
-    public RssModel() {
-        Title = "";
-        Link = "";
-        Text = "";
-        article = new ArrayList<>();
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.exmple.rssfeed.R;
+import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.view.fragment.RSSFragment;
 
 /**
@@ -22,6 +23,7 @@ public class RssActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Data.getInstance().SaveData();
     }
 
     @Override

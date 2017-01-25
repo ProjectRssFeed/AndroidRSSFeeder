@@ -38,22 +38,9 @@ public class RSSFragment extends android.support.v4.app.Fragment {
 
     private RSSAdapter rssAdapter;
 
-    public static RSSFragment newInstance(String user) {
-        return new RSSFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        try {
-//            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
-//            FileInputStream fd = new FileInputStream(saveList);
-//            ObjectInputStream ois = new ObjectInputStream(fd);
-//            mRss = (List<ArticleModel>) ois.readObject();
-//            ois.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         rssAdapter = new RSSAdapter(getActivity());
     }
 
@@ -70,19 +57,6 @@ public class RSSFragment extends android.support.v4.app.Fragment {
         ButterKnife.bind(this, fragmentView);
         setupRecyclerView();
         return fragmentView;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        try {
-//            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
-//            FileOutputStream fd = new FileOutputStream(saveList);
-//            ObjectOutputStream os = new ObjectOutputStream(fd);
-//            os.writeObject(mRss);
-//        } catch (Exception e) {
-//            LoggerService.Log("Error writing Data");
-//        }
     }
 
     private void setupRecyclerView() {

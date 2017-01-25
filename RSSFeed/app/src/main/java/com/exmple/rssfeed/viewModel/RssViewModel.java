@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.model.ArticleModel;
+import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.model.RssModel;
 import com.exmple.rssfeed.view.ArticleActivity;
 import com.exmple.rssfeed.view.RssActivity;
@@ -46,8 +47,7 @@ public class RssViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(RSSFeed.getContext(), ArticleActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                RSSFeed.getContext().startActivity(ArticleActivity.getStartIntent(context, post));
+                RSSFeed.getContext().startActivity(ArticleActivity.getStartIntent(context, Data.getInstance().Rss.indexOf(post)));
             }
         };
     }

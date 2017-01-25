@@ -13,21 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.exmple.rssfeed.R;
-import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.ArticleModel;
 import com.exmple.rssfeed.model.Data;
-import com.exmple.rssfeed.model.RssModel;
 import com.exmple.rssfeed.view.ArticleActivity;
 import com.exmple.rssfeed.view.adapter.ArticleAdapter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -50,18 +42,10 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     public static final String ARG_USER = "ARG_USER";
 
     private ArticleAdapter mPostAdapter;
-    private RssModel model;
+    private int model;
     private ArticleActivity pactivity;
 
-//    public static ArticlesFragment newInstance(String user) {
-//        ArticlesFragment storiesFragment = new ArticlesFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_USER, user);
-//        storiesFragment.setArguments(args);
-//        return storiesFragment;
-//    }
-
-    public ArticlesFragment(RssModel mod, ArticleActivity activity) {
+    public ArticlesFragment(int mod, ArticleActivity activity) {
         model = mod;
         this.pactivity = activity;
     }
@@ -69,17 +53,6 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
-        try {
-            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
-            FileInputStream fd = new FileInputStream(saveList);
-            ObjectInputStream ois = new ObjectInputStream(fd);
-            mArticles = (List<ArticleModel>) ois.readObject();
-            ois.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
         mPostAdapter = new ArticleAdapter(getActivity());
     }
 
@@ -89,24 +62,9 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         setupRecyclerView();
-        if (model.article.size() > 0)
+        if (Data.getInstance().Rss.get(model).article.size() > 0)
             hideLoadingViews();
         return fragmentView;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-/*
-        try {
-            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
-            FileOutputStream fd = new FileOutputStream(saveList);
-            ObjectOutputStream os = new ObjectOutputStream(fd);
-            os.writeObject(mArticles);
-        } catch (Exception e) {
-            LoggerService.Log("Error writing Data");
-        }
-*/
     }
 
     @Override
@@ -117,15 +75,15 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuigzregerzrgzergrezgggggggggggggggggggggggggggggggggggggggggggggggggggfdsgrfsgfddsgfsdgfsdgfdsgfsdgfdsgfsdgfdgfdgfdgsdfgfdsgfdsgfdsgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdsgfdsgfdhvfduisvs";
         tmp.Title = "Android c'est de la merde " + i;
         tmp.Link = "http://v,ojoerifoerifroijeroifoierefjo";
-        model.article.add(0, tmp);
-        mPostAdapter.setItems(model.article);
+        Data.getInstance().Rss.get(model).article.add(0, tmp);
+        mPostAdapter.setItems(Data.getInstance().Rss.get(model).article);
         hideLoadingViews();
     }
 
     private void setupRecyclerView() {
         mListPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListPosts.setHasFixedSize(true);
-        mPostAdapter.setItems(model.article);
+        mPostAdapter.setItems(Data.getInstance().Rss.get(model).article);
         mListPosts.setAdapter(mPostAdapter);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
