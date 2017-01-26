@@ -26,7 +26,7 @@
             android:textColor="@color/colorWhite"
             android:layout_marginTop="124dp"
             android:maxLines="1"
-            android:hint="@string/title"
+            android:hint="@string/link"
             android:text="@={viewmodel.link}"/>
 
         <Button

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.exmple.rssfeed.Json.JsonRequestQueue;
 import com.exmple.rssfeed.R;
@@ -25,6 +26,8 @@ import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.view.ArticleActivity;
 import com.exmple.rssfeed.view.adapter.ArticleAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -61,7 +64,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPostAdapter = new ArticleAdapter(getActivity());
+        mPostAdapter = new ArticleAdapter(getActivity(), model);
     }
 
     @Override
@@ -70,6 +73,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         setupRecyclerView();
+        refreshData();
         if (Data.getInstance().Rss.get(model).article.size() > 0)
             hideLoadingViews();
         return fragmentView;
@@ -77,26 +81,18 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
 
     @Override
     public void onRefresh() {
-        if (mPostAdapter != null) mPostAdapter.setItems(new ArrayList<ArticleModel>());
-        ArticleModel tmp = new ArticleModel();
-        int i = ((new Random()).nextInt(80 -65 ) + 65);
-        tmp.Text = "fzioerjvipuvghreiuhsiuerhviufdsiuvhfdiuvdfuigzregerzrgzergrezgggggggggggggggggggggggggggggggggggggggggggggggggggfdsgrfsgfddsgfsdgfsdgfdsgfsdgfdsgfsdgfdgfdgfdgsdfgfdsgfdsgfdsgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdgfdsgfdsgfdhvfduisvs";
-        tmp.Title = "Android c'est de la merde " + i;
-        tmp.Link = "http://v,ojoerifoerifroijeroifoierefjo";
-        Data.getInstance().Rss.get(model).article.add(0, tmp);
-        mPostAdapter.setItems(Data.getInstance().Rss.get(model).article);
+        refreshData();
         hideLoadingViews();
     }
 
     private void setupRecyclerView() {
         mListPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListPosts.setHasFixedSize(true);
-        mPostAdapter.setItems(Data.getInstance().Rss.get(model).article);
         mListPosts.setAdapter(mPostAdapter);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
+                JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
@@ -104,7 +100,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        LoggerService.Log("Failed to Delete RSS via JSON");
                     }
                 });
                 JsonRequestQueue.getInstance().addToRequestQueue(json);
@@ -116,5 +112,30 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     private void hideLoadingViews() {
         mProgressBar.setVisibility(View.GONE);
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void refreshData() {
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject flux = (JSONObject)response.get(i);
+                        ArticleModel rss = new ArticleModel(flux.getString("Title"), flux.getString("Description"), flux.getString("Link"));
+                        if (!Data.getInstance().Rss.get(model).article.contains(rss))
+                            Data.getInstance().Rss.get(model).article.add(0, rss);
+                    }
+
+                } catch (JSONException e) {
+
+                }
+                mPostAdapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LoggerService.Log("Failed to Get RSS data via JSON");
+            }
+        });
     }
 }

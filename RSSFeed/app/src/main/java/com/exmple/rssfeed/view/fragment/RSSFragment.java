@@ -10,16 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.exmple.rssfeed.Json.JsonRequestQueue;
 import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
+import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.model.RssModel;
 import com.exmple.rssfeed.view.AddRssActivity;
-import com.exmple.rssfeed.view.RssActivity;
 import com.exmple.rssfeed.view.adapter.RSSAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,7 +55,7 @@ public class RSSFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        rssAdapter.notifyDataSetChanged();
+        refreshData();
     }
 
     @Override
@@ -56,6 +63,7 @@ public class RSSFragment extends android.support.v4.app.Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_rss, container, false);
         ButterKnife.bind(this, fragmentView);
         setupRecyclerView();
+        refreshData();
         return fragmentView;
     }
 
@@ -71,5 +79,31 @@ public class RSSFragment extends android.support.v4.app.Fragment {
                 RSSFeed.getContext().startActivity(i);
             }
         });
+    }
+
+    private void refreshData() {
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink), null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject flux = (JSONObject)response.get(i);
+                                RssModel rss = new RssModel(flux.getString("Id"), flux.getString("Title"), flux.getString("Description"));
+                                if (!Data.getInstance().Rss.contains(rss))
+                                    Data.getInstance().Rss.add(0, rss);
+                            }
+                        } catch (JSONException e) {
+                            LoggerService.Log("Failed Parse Json RSS Model");
+                        }
+                        rssAdapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LoggerService.Log("Failed to Get RSS list via JSON");
+            }
+        });
+        JsonRequestQueue.getInstance().addToRequestQueue(json);
     }
 }

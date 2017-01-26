@@ -27,9 +27,9 @@ public class ArticleModel implements Serializable{
         return true;
     }
 
-    public ArticleModel() {
-        Title = "";
-        Link = "";
-        Text = "";
+    public ArticleModel(String title, String text, String link) {
+        Title = title;
+        Link = text;
+        Text = link;
     }
 }

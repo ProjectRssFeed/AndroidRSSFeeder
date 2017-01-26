@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import static com.android.volley.Request.*;
 
@@ -63,6 +64,7 @@ public class AddRssActivityViewModel extends BaseObservable {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                LoggerService.Log("Failed to ADD via JSON");
             }
         }) {
             @Override
