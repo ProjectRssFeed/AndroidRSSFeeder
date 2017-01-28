@@ -1,0 +1,8 @@
+com.exmple.rssfeed
+com.exmple.rssfeed.Json
+com.exmple.rssfeed.Utils
+com.exmple.rssfeed.model
+com.exmple.rssfeed.view
+com.exmple.rssfeed.view.adapter
+com.exmple.rssfeed.view.fragment
+com.exmple.rssfeed.viewModel
