@@ -6,6 +6,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.View;
 import android.view.textservice.TextInfo;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -60,11 +61,12 @@ public class AddRssActivityViewModel extends BaseObservable {
         JsonObjectRequest json = new JsonObjectRequest(Method.POST, RSSFeed.getContext().getString(R.string.serverLink), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Toast.makeText(RSSFeed.getContext(), "Add RSS flux", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LoggerService.Log("Failed to ADD via JSON");
+                Toast.makeText(RSSFeed.getContext(), "Failed to add RSS flux", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

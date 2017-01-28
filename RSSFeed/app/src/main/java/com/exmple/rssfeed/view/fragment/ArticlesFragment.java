@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -95,12 +96,12 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
                 JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        Toast.makeText(pactivity, "Delete RSS flux", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        LoggerService.Log("Failed to Delete RSS via JSON");
+                        Toast.makeText(pactivity, "Failed to delete RSS flux", Toast.LENGTH_SHORT).show();
                     }
                 });
                 JsonRequestQueue.getInstance().addToRequestQueue(json);
@@ -118,6 +119,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Toast.makeText(pactivity, "Updated RSS data", Toast.LENGTH_SHORT).show();
                 try {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject flux = (JSONObject)response.get(i);
@@ -125,17 +127,18 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
                         if (!Data.getInstance().Rss.get(model).article.contains(rss))
                             Data.getInstance().Rss.get(model).article.add(0, rss);
                     }
-
+                    Toast.makeText(RSSFeed.getContext(), "Updated RSS data", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-
+                    Toast.makeText(RSSFeed.getContext(), "Failed to parse RSS data", Toast.LENGTH_SHORT).show();
                 }
                 mPostAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LoggerService.Log("Failed to Get RSS data via JSON");
+                Toast.makeText(pactivity, "Failed to get RSS data", Toast.LENGTH_SHORT).show();
             }
         });
+        JsonRequestQueue.getInstance().addToRequestQueue(json);
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,7 +21,7 @@ import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 import com.exmple.rssfeed.model.Data;
-import com.exmple.rssfeed.model.RssModel;
+import com.exmple.rssfeed.model.*;
 import com.exmple.rssfeed.view.AddRssActivity;
 import com.exmple.rssfeed.view.adapter.RSSAdapter;
 
@@ -93,15 +94,16 @@ public class RSSFragment extends android.support.v4.app.Fragment {
                                 if (!Data.getInstance().Rss.contains(rss))
                                     Data.getInstance().Rss.add(0, rss);
                             }
+                            Toast.makeText(RSSFeed.getContext(), "Updated RSS list", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
-                            LoggerService.Log("Failed Parse Json RSS Model");
+                            Toast.makeText(RSSFeed.getContext(), "Failed to parse RSS list", Toast.LENGTH_SHORT).show();
                         }
                         rssAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LoggerService.Log("Failed to Get RSS list via JSON");
+                Toast.makeText(RSSFeed.getContext(), "Failed to get RSS list", Toast.LENGTH_SHORT).show();
             }
         });
         JsonRequestQueue.getInstance().addToRequestQueue(json);
