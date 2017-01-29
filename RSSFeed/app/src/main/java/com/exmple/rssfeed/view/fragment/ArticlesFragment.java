@@ -75,6 +75,8 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         View fragmentView = inflater.inflate(R.layout.fragment_article, container, false);
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        if (Data.getInstance().Rss.get(model).article.size() > 0)
+            hideLoadingViews();
         refreshData();
         setupRecyclerView();
         return fragmentView;
