@@ -27,10 +27,11 @@ public final class Data {
     private Data() {
         Rss = new ObservableArrayList<RssModel>();
         try {
-            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
+            File saveList = new File(RSSFeed.getContext().getCacheDir() + "/list.data");
             FileInputStream fd = new FileInputStream(saveList);
             ObjectInputStream ois = new ObjectInputStream(fd);
             Rss = (ObservableArrayList<RssModel>) ois.readObject();
+            LoggerService.Log(Rss.size() + "");
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +51,7 @@ public final class Data {
 
     public void SaveData() {
         try {
-            File saveList = new File(RSSFeed.getContext().getCacheDir() + "list.data");
+            File saveList = new File(RSSFeed.getContext().getCacheDir() + "/list.data");
             FileOutputStream fd = new FileOutputStream(saveList);
             ObjectOutputStream os = new ObjectOutputStream(fd);
             os.writeObject(Rss);

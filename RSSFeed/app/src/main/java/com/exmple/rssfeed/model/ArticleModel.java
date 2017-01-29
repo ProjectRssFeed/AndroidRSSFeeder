@@ -29,7 +29,7 @@ public class ArticleModel implements Serializable{
 
     public ArticleModel(String title, String text, String link) {
         Title = title;
-        Link = text;
-        Text = link;
+        Link = link;
+        Text = text;
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,10 +74,8 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         View fragmentView = inflater.inflate(R.layout.fragment_article, container, false);
         ButterKnife.bind(this, fragmentView);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        setupRecyclerView();
         refreshData();
-        if (Data.getInstance().Rss.get(model).article.size() > 0)
-            hideLoadingViews();
+        setupRecyclerView();
         return fragmentView;
     }
 
@@ -93,7 +92,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
+                JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(pactivity, "Delete RSS flux", Toast.LENGTH_SHORT).show();
@@ -116,7 +115,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     }
 
     private void refreshData() {
-        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink) + "/" + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Toast.makeText(pactivity, "Updated RSS data", Toast.LENGTH_SHORT).show();
@@ -131,6 +130,8 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
                 } catch (JSONException e) {
                     Toast.makeText(RSSFeed.getContext(), "Failed to parse RSS data", Toast.LENGTH_SHORT).show();
                 }
+                if (Data.getInstance().Rss.get(model).article.size() > 0)
+                    hideLoadingViews();
                 mPostAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +37,10 @@ import butterknife.ButterKnife;
  * Created by Quentin on 24/01/2017.
  */
 
-public class RSSFragment extends android.support.v4.app.Fragment {
+public class RSSFragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    @Bind(R.id.swipe_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Bind(R.id.recycler_stories)
     RecyclerView mRssRecycler;
@@ -63,9 +67,16 @@ public class RSSFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_rss, container, false);
         ButterKnife.bind(this, fragmentView);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         setupRecyclerView();
         refreshData();
         return fragmentView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Data.getInstance().SaveData();
     }
 
     private void setupRecyclerView() {
@@ -107,5 +118,10 @@ public class RSSFragment extends android.support.v4.app.Fragment {
             }
         });
         JsonRequestQueue.getInstance().addToRequestQueue(json);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshData();
     }
 }
