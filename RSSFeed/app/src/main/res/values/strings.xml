@@ -10,4 +10,6 @@
     <string name="link">Link</string>
     <string name="add">Add</string>
     <string name="serverLink">http://163.5.84.111:8443/v0.1/rss/</string>
+    <string name="adresse_ip">Adresse IP</string>
+    <string name="port">Port</string>
 </resources>

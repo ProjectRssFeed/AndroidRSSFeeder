@@ -9,10 +9,13 @@ import android.view.View;
 import com.exmple.rssfeed.BR;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
+import com.exmple.rssfeed.model.Data;
 import com.exmple.rssfeed.view.ArticleActivity;
 import com.exmple.rssfeed.view.RssActivity;
 
 import java.util.logging.Logger;
+
+import butterknife.Bind;
 
 /**
  * Created by Quentin on 12/01/2017.
@@ -22,6 +25,8 @@ public class MainActivityViewModel extends BaseObservable {
 
     private String Login;
     private String Passwd;
+    private String Ip = "";
+    private String Port = "";
 
     public MainActivityViewModel() {
         SharedPreferences settings = RSSFeed.getContext().getSharedPreferences("ApiCredentials", RSSFeed.getContext().MODE_PRIVATE);
@@ -50,8 +55,28 @@ public class MainActivityViewModel extends BaseObservable {
         this.Passwd = passwd;
         notifyPropertyChanged(BR.passwd);
     }
+
+    @Bindable
+    public String getIp() {return this.Ip; }
+
+    public void setIp(String ip) {
+        this.Ip = ip;
+        notifyPropertyChanged(BR.ip);
+    }
+
+    @Bindable
+    public String getPort() { return this.Port; }
+
+    public void setPort(String port) {
+        this.Port = port;
+        notifyPropertyChanged(BR.port);
+    }
+
     public synchronized void onClickSignIn(View view) {
-        LoggerService.Log(this.getClass().getName(), "Click on sign in");
+        if (!Ip.isEmpty() && !Port.isEmpty())
+            Data.getInstance().setAddress(Ip, Port);
+        else
+            Data.getInstance().setDefaultAddress();
         // Call API to Login
         SharedPreferences sharedPreferences = RSSFeed.getContext().getSharedPreferences("ApiCredentials", RSSFeed.getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

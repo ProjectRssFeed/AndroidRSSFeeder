@@ -59,7 +59,7 @@ public class AddRssActivityViewModel extends BaseObservable {
 
     public synchronized void onClickAdd(View view) {
         try {
-            SubJsonObjectRequest json = new SubJsonObjectRequest(Method.POST, RSSFeed.getContext().getString(R.string.serverLink), new JSONObject("{\"Link\":\"" + getLink() + "\"}"),
+            SubJsonObjectRequest json = new SubJsonObjectRequest(Method.POST, Data.getInstance().Address, new JSONObject("{\"Link\":\"" + getLink() + "\"}"),
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorWhite"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="94dp"
         android:maxLines="1"
         android:hint="@string/login"
         android:text="@={viewmodel.login}"/>
@@ -41,11 +41,34 @@
         android:hint="@string/password"
         android:text="@={viewmodel.passwd}"/>
 
+        <EditText
+            android:id="@+id/ipText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@id/passwdText"
+            android:layout_marginTop="30dp"
+            android:maxLines="1"
+            android:hint="@string/adresse_ip"
+            android:text="@={viewmodel.ip}"/>
+
+        <EditText
+            android:id="@+id/portText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@id/ipText"
+            android:layout_marginTop="30dp"
+            android:maxLines="1"
+            android:hint="@string/port"
+            android:text="@={viewmodel.port}"/>
+
+
         <Button
             android:text="@string/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/passwdText"
+            android:layout_below="@id/portText"
             android:layout_alignParentRight="true"
             android:layout_marginRight="50dp"
             android:layout_marginTop="30dp"

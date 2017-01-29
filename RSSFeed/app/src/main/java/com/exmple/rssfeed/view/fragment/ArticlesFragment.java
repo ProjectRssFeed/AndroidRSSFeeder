@@ -33,9 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -95,7 +92,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SubJsonObjectRequest json = new SubJsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
+                    SubJsonObjectRequest json = new SubJsonObjectRequest(Request.Method.DELETE, Data.getInstance().Address + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Data.getInstance().Rss.remove(Data.getInstance().Rss.get(model));
@@ -119,7 +116,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
     }
 
     private void refreshData() {
-        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, Data.getInstance().Address + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Toast.makeText(pactivity, "Updated RSS data", Toast.LENGTH_SHORT).show();
@@ -141,7 +138,6 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LoggerService.Log(error.getMessage());
                 Toast.makeText(pactivity, "Failed to get RSS data", Toast.LENGTH_SHORT).show();
             }
         });

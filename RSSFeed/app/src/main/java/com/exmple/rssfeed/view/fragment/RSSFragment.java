@@ -94,7 +94,7 @@ public class RSSFragment extends android.support.v4.app.Fragment implements Swip
     }
 
     private void refreshData() {
-        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, RSSFeed.getContext().getString(R.string.serverLink), null,
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, Data.getInstance().Address, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -109,7 +109,6 @@ public class RSSFragment extends android.support.v4.app.Fragment implements Swip
                         } catch (JSONException e) {
                             Toast.makeText(RSSFeed.getContext(), "Failed to parse RSS list", Toast.LENGTH_SHORT).show();
                         }
-                        mSwipeRefreshLayout.setRefreshing(false);
                         rssAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
@@ -124,5 +123,6 @@ public class RSSFragment extends android.support.v4.app.Fragment implements Swip
     @Override
     public void onRefresh() {
         refreshData();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

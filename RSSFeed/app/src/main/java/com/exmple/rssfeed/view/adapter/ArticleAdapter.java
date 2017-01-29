@@ -44,6 +44,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.BindingH
 
     @Override
     public int getItemCount() {
+        if (!(mPosts < Data.getInstance().Rss.size()))
+            return 0;
         return Data.getInstance().Rss.get(mPosts).article.size();
     }
 

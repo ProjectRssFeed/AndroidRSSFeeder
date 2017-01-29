@@ -2,6 +2,7 @@ package com.exmple.rssfeed.model;
 
 import android.databinding.ObservableArrayList;
 
+import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
 
@@ -23,6 +24,8 @@ public final class Data {
     private static volatile Data instance = null;
 
     public ObservableArrayList<RssModel> Rss;
+
+    public String Address = RSSFeed.getContext().getString(R.string.serverLink);
 
     private Data() {
         Rss = new ObservableArrayList<RssModel>();
@@ -47,6 +50,14 @@ public final class Data {
             }
         }
         return Data.instance;
+    }
+
+    public void setAddress(String ip, String port) {
+        Address = "http://" + ip + ":" + port + "/v0.1/rss/";
+    }
+
+    public void setDefaultAddress() {
+        Address = RSSFeed.getContext().getString(R.string.serverLink);
     }
 
     public void SaveData() {
