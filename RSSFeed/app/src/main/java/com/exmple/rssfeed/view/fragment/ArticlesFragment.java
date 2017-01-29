@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.exmple.rssfeed.Json.JsonRequestQueue;
+import com.exmple.rssfeed.Json.SubJsonObjectRequest;
 import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
@@ -92,9 +93,10 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JsonObjectRequest json = new JsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
+                SubJsonObjectRequest json = new SubJsonObjectRequest(Request.Method.DELETE, RSSFeed.getContext().getString(R.string.serverLink) + Data.getInstance().Rss.get(model).Id, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Data.getInstance().Rss.remove(Data.getInstance().Rss.get(model));
                         Toast.makeText(pactivity, "Delete RSS flux", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
@@ -137,6 +139,7 @@ public class ArticlesFragment extends Fragment implements OnRefreshListener {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                LoggerService.Log(error.getMessage());
                 Toast.makeText(pactivity, "Failed to get RSS data", Toast.LENGTH_SHORT).show();
             }
         });

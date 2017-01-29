@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.exmple.rssfeed.BR;
 import com.exmple.rssfeed.Json.JsonRequestQueue;
+import com.exmple.rssfeed.Json.SubJsonObjectRequest;
 import com.exmple.rssfeed.R;
 import com.exmple.rssfeed.RSSFeed;
 import com.exmple.rssfeed.Utils.LoggerService;
@@ -57,26 +58,23 @@ public class AddRssActivityViewModel extends BaseObservable {
     }
 
     public synchronized void onClickAdd(View view) {
-        LoggerService.Log(this.getClass().getName(), "Click on Add");
-        JsonObjectRequest json = new JsonObjectRequest(Method.POST, RSSFeed.getContext().getString(R.string.serverLink), null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(RSSFeed.getContext(), "Add RSS flux", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RSSFeed.getContext(), "Failed to add RSS flux", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Link", Url);
-                return params;
-            }
-        };
-        JsonRequestQueue.getInstance().addToRequestQueue(json);
-        activity.finish();
+        try {
+            SubJsonObjectRequest json = new SubJsonObjectRequest(Method.POST, RSSFeed.getContext().getString(R.string.serverLink), new JSONObject("{\"Link\":\"" + getLink() + "\"}"),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(RSSFeed.getContext(), "Add RSS flux", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(RSSFeed.getContext(), "Failed to add RSS flux", Toast.LENGTH_SHORT).show();
+                }
+            });
+            JsonRequestQueue.getInstance().addToRequestQueue(json);
+            activity.finish();
+        } catch (Exception e) {
+            Toast.makeText(activity, "Failed to parse url", Toast.LENGTH_SHORT).show();
+        }
     }
 }

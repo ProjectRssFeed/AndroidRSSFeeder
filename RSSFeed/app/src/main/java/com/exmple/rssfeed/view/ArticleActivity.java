@@ -33,7 +33,8 @@ public class ArticleActivity extends BaseActivity {
         setContentView(R.layout.activity_article);
         Bundle bundle = getIntent().getExtras();
         int m = (int) bundle.getSerializable("RssModel");
-        setTitle(Data.getInstance().Rss.get(m).Title);
+        if (m < Data.getInstance().Rss.size())
+            setTitle(Data.getInstance().Rss.get(m).Title);
         am = new ArticlesFragment(m, this);
         getSupportFragmentManager()
                 .beginTransaction()
